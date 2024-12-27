@@ -23,7 +23,7 @@ model User{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   favoriteIds String[] @db.ObjectId
-
+  
 
   accounts Account[]
   listings Listing[]
@@ -60,6 +60,7 @@ model Listing {
   bathroomCount Int
   guestCount Int
   locationValue String
+  address String
 
   userId String @db.ObjectId
   price Int
