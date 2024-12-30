@@ -14,6 +14,7 @@ export async function POST(request: Request) {
   const {
     title,
     description,
+    address,
     imageSrc,
     category,
     roomCount,
@@ -33,6 +34,7 @@ export async function POST(request: Request) {
     data: {
       title,
       description,
+      address,
       imageSrc,
       category,
       roomCount,

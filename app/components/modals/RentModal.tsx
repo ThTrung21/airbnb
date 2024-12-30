@@ -51,8 +51,10 @@ const RentModal = () => {
       bathroomCount: 1,
       imageSrc: "",
       price: 1,
+
       title: "",
       description: "",
+      address: "",
     },
   });
 
@@ -239,6 +241,14 @@ const RentModal = () => {
           required
         />
         <hr />
+        <Input
+          id="address"
+          label="Exact Address"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
       </div>
     );
   }
