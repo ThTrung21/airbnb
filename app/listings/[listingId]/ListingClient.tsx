@@ -1,7 +1,7 @@
 "use client";
 
 import Container from "@/app/components/Container";
-import useLoginModal from "@/app/components/hooks/useLoginModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";

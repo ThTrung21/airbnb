@@ -3,7 +3,7 @@ import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import { Listing, Reservation, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
-import useCountries from "../hooks/useCountries";
+import useCountries from "../../hooks/useCountries";
 import { format } from "date-fns";
 import Image from "next/image";
 import HeartButton from "../HeartButton";

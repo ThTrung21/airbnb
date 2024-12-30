@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import useRentModal from "../hooks/useRentModal";
+import useRentModal from "../../hooks/useRentModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
