@@ -14,6 +14,7 @@ interface ModalProps {
   disabled?: boolean;
   secondaryAction?: () => void;
   secondaryActionLabel?: string;
+  isSubmitable?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -27,6 +28,7 @@ const Modal: React.FC<ModalProps> = ({
   disabled,
   secondaryAction,
   secondaryActionLabel,
+  isSubmitable = true,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
   useEffect(() => {
@@ -165,6 +167,7 @@ const Modal: React.FC<ModalProps> = ({
                     disabled={disabled}
                     label={actionLabel}
                     onClick={handleSubmit}
+                    visibility={isSubmitable}
                   />
                 </div>
                 {footer}

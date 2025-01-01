@@ -4,9 +4,9 @@ import getCurrentUser from "../actions/getCurrentUser";
 import getFavoriteListings from "../actions/getFavoriteListings";
 import FavoritesClient from "./FavoritesClient";
 
-const ListingPage = async () => {
+const FavoritesPage = async () => {
   const listings = await getFavoriteListings();
-  const currentUser = getCurrentUser();
+  const currentUser = await getCurrentUser();
 
   if (listings?.length === 0)
     return (
@@ -24,3 +24,5 @@ const ListingPage = async () => {
     </ClientOnly>
   );
 };
+
+export default FavoritesPage;

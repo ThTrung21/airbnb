@@ -65,7 +65,6 @@ const RentModal = () => {
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
 
-  console.log(imageSrc);
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {

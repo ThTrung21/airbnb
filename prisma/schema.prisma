@@ -23,7 +23,7 @@ model User{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   favoriteIds String[] @db.ObjectId
-  
+  postLikeIds String[] @db.ObjectId
 
   accounts Account[]
   listings Listing[]
@@ -87,9 +87,8 @@ model Post{
   title String
   description String
   imageSrc String
-  createdAt DateTime @default(now())
   LikeIds String[] @db.ObjectId
-  
+  likeNum Int
   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
 
 }                                       

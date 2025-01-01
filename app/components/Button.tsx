@@ -8,6 +8,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  visibility?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,7 +18,9 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   icon: Icon,
+  visibility = true,
 }) => {
+  if (!visibility) return null;
   return (
     <button
       onClick={onClick}
