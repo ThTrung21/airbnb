@@ -38,7 +38,7 @@ const Postingcard: React.FC<PostingCardProps> = ({
   return (
     <div
       onClick={onPostInfo}
-      className="col-span-1 group border cursor-pointer border-neutral-600 rounded-md mb-4"
+      className="col-span-1 group border cursor-pointer border-neutral-800 rounded-md mb-4 shadow-lg hover:shadow-2xl transition-shadow duration-350"
     >
       <div className="flex flex-col gap-2 w-full ">
         <div

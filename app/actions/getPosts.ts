@@ -17,9 +17,7 @@ export default async function getPosts(params: IPostParams) {
 
     const posts = await prisma.post.findMany({
       where: query,
-      orderBy: {
-        id: "asc",
-      },
+      orderBy: [{ likeNum: "desc" }, { id: "desc" }],
     });
 
     return posts;
