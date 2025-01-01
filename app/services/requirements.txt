@@ -1,0 +1,7 @@
+Flask
+waitress
+flask-cors
+pymongo
+transformers
+sentence-transformers
+numpy
