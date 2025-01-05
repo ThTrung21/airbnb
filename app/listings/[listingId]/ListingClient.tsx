@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import toast from "react-hot-toast";
-
+import { loadStripe } from "@stripe/stripe-js";
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
@@ -31,7 +31,9 @@ interface ListingClientProps {
   };
   currentUser: SafeUser | null;
 }
-
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+);
 const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   reservations = [],
@@ -58,7 +60,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
-  const onCreateReservation = useCallback(() => {
+  const onCreateReservationNoPay = useCallback(() => {
     if (!currentUser) return loginModal.onOpen();
     console.log("start date: ", dateRange.startDate);
     console.log("end date: ", dateRange.endDate);
@@ -72,6 +74,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing?.id,
+        isPaid: false,
       })
       .then(() => {
         toast.success("Listing reserved!");
@@ -87,6 +90,59 @@ const ListingClient: React.FC<ListingClientProps> = ({
       });
   }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal]);
 
+  const onCreateReservation = useCallback(async () => {
+    if (!currentUser) return loginModal.onOpen();
+
+    console.log("start date: ", dateRange.startDate);
+    console.log("end date: ", dateRange.endDate);
+    console.log(listing?.id);
+    console.log(totalPrice);
+
+    setIsLoading(true);
+
+    try {
+      // Create a reservation in your app's database
+      await axios.post("/api/reservations", {
+        totalPrice,
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate,
+        listingId: listing?.id,
+        isPaid: true,
+      });
+
+      // Create a Stripe Checkout session
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error("Stripe not loaded");
+
+      const response = await axios.post("/api/create-checkout-sessions", {
+        amount: totalPrice,
+        dateRange,
+        listingId: listing?.id,
+        name: listing?.title,
+      });
+
+      const { sessionId } = response.data;
+
+      if (sessionId) {
+        await stripe.redirectToCheckout({ sessionId });
+      } else {
+        throw new Error("Failed to create Stripe Checkout session");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong.");
+    } finally {
+      setIsLoading(false);
+      toast.success("Booking complete!");
+    }
+  }, [
+    totalPrice,
+    dateRange,
+    listing?.id,
+    currentUser,
+    loginModal,
+    listing?.title,
+  ]);
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
@@ -134,7 +190,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 totalPrice={totalPrice}
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
-                onSubmit={onCreateReservation}
+                onSubmitMain={onCreateReservation}
+                onSubmitSecondary={onCreateReservationNoPay}
                 disabled={isLoading}
                 disabledDates={disabledDates}
               />

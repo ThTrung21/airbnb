@@ -76,6 +76,7 @@ model Reservation {
   startDate DateTime
   endDate DateTime
   totalPrice Int
+  isPaid Boolean
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
