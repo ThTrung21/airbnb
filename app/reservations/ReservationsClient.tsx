@@ -48,7 +48,9 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
         {reservations.map((reservation) => {
           const reservationDate = new Date(reservation.startDate); // Convert the string to a Date object
           const isPastDate = new Date() >= reservationDate; // Check if the current datetime is on or after the reservation start date
-          const isDisabled = deletingId === reservation.id || isPastDate; // Determine if the card should be disabled
+          const isPaid = reservation.isPaid;
+          const isDisabled =
+            deletingId === reservation.id || isPastDate || isPaid; // Determine if the card should be disabled
           const actionLabel = isDisabled
             ? "Cannot cancel"
             : "Cancel reservation"; // Set actionLabel dynamically
