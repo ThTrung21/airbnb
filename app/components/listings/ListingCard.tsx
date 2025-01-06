@@ -65,7 +65,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       className="
         col-span-1 cursor-pointer group"
     >
-      <div className="flex flex-col gap-2 w-full">
+      {/* <div className="flex flex-col gap-2 w-full">
         <div
           className="
               aspect-square
@@ -89,7 +89,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div className="font-semibold text-lg">
+        <div className="font-semibold text-lg h-10 overflow-hidden text-ellipsis whitespace-nowrap">
+          {data.title}
+        </div>
+
+        <div className="font-medium text-neutral-600">
           {location?.region}, {location?.label}
         </div>
         <div className="font-light text-neutral-500">
@@ -100,12 +104,80 @@ const ListingCard: React.FC<ListingCardProps> = ({
           {!reservation && <div className="font-light">night</div>}
         </div>
         {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
+          <>
+            <div
+              className={`${
+                reservation?.isPaid
+                  ? "text-green-600 bg-gray-100"
+                  : "text-red-600 bg-gray-100"
+              } px-2 py-1 rounded`}
+            >
+              {reservation?.isPaid ? "Paid" : "Unpaid"}
+            </div>
+            <Button
+              disabled={disabled}
+              small
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          </>
+        )}
+      </div> */}
+      <div className="flex flex-col gap-2 w-full">
+        <div
+          className="
+        aspect-square
+        w-full
+        relative
+        overflow-hidden
+        rounded-xl"
+        >
+          <Image
+            fill
+            alt="Listing"
+            src={data.imageSrc}
+            className="
+                object-cover
+                h-full
+                w-full
+                group-hover:scale-110
+                transition"
           />
+        </div>
+        <div className="font-semibold text-lg h-[48px] overflow-hidden text-ellipsis line-clamp-2">
+          {data.title}
+        </div>
+        <div className="font-medium text-neutral-600">
+          {location?.region}, {location?.label}
+        </div>
+        <div className="font-light text-neutral-500">
+          {reservationDate || data.category}
+        </div>
+        <div className="flex flex-row items-center gap-1">
+          <div className="font-semibold"> $ {price} </div>
+          {!reservation && <div className="font-light">night</div>}
+        </div>
+        {onAction && actionLabel && (
+          <>
+            {reservation && (
+              <div
+                className={`${
+                  reservation.isPaid
+                    ? "text-green-600 bg-gray-100"
+                    : "text-red-600 bg-gray-100"
+                } px-2 py-1 rounded`}
+              >
+                {reservation.isPaid ? "Paid" : "Unpaid"}
+              </div> 
+            )}
+
+            <Button
+              disabled={disabled}
+              small
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          </>
         )}
       </div>
     </div>

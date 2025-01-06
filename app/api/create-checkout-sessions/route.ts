@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
-
+import { format } from "date-fns";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-12-18.acacia",
 });
@@ -18,7 +18,10 @@ export async function POST(req: Request) {
             currency: "usd",
             product_data: {
               name: `Reservation for listing ${name}`,
-              description: `From ${dateRange.startDate} to ${dateRange.endDate}`,
+              description: `From ${format(
+                dateRange.startDate,
+                "PP"
+              )} to ${format(dateRange.endDate, "PP")}`,
             },
             unit_amount: amount * 100, // Convert amount to cents
           },

@@ -186,6 +186,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             />
             <div className="order-first mb-10 mb:order-last md:col-span-3">
               <ListingReservation
+                currentUser={currentUser}
                 price={listing.price}
                 totalPrice={totalPrice}
                 onChangeDate={(value) => setDateRange(value)}

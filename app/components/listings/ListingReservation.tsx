@@ -3,6 +3,7 @@
 import { Range } from "react-date-range";
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
+import { SafeUser } from "@/app/types";
 
 interface ListingReservationProps {
   price: number;
@@ -13,6 +14,7 @@ interface ListingReservationProps {
   onSubmitSecondary: () => void;
   disabled?: boolean;
   disabledDates: Date[];
+  currentUser: SafeUser | null;
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
@@ -24,6 +26,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   onSubmitSecondary,
   disabled,
   disabledDates,
+  currentUser,
 }) => {
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
@@ -38,21 +41,25 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         onChange={(value) => onChangeDate(value.selection)}
       />
       <hr />
-      <div className="p-4">
-        <Button
-          disabled={disabled}
-          label="Pay and Reserve"
-          onClick={onSubmitMain}
-        />
-      </div>
-      <div className="px-4">
-        <Button
-          outline={true}
-          disabled={disabled}
-          label="Reserve"
-          onClick={onSubmitSecondary}
-        />
-      </div>
+      {currentUser && (
+        <>
+          <div className="p-4">
+            <Button
+              disabled={disabled}
+              label="Pay and Reserve"
+              onClick={onSubmitMain}
+            />
+          </div>
+          <div className="px-4">
+            <Button
+              outline={true}
+              disabled={disabled}
+              label="Reserve"
+              onClick={onSubmitSecondary}
+            />
+          </div>
+        </>
+      )}
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
         <div>Total</div>
         <div>$ {totalPrice}</div>
