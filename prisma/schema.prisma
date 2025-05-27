@@ -23,12 +23,14 @@ model User{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   favoriteIds String[] @db.ObjectId
+
   postLikeIds String[] @db.ObjectId
 
   accounts Account[]
   listings Listing[]
   posts Post[]
   reservations Reservation[]
+  ratings Rating[]
 }
 
 model Account {
@@ -68,6 +70,7 @@ model Listing {
 
   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
   reservations Reservation[]
+  ratings Rating[]
 }
 model Reservation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -92,4 +95,16 @@ model Post{
   likeNum Int
   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
 
-}                                       
+}           
+model Rating{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  listingId String @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  stars Int
+  
+  @@unique([userId, listingId])
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade )
+  user User @relation(fields: [userId], references: [id],onDelete: Cascade)
+}                            

@@ -31,6 +31,7 @@ def get_posts():
 
 #===========================================================================
 #running the server
+# run app.py
 if __name__ == "__main__":
     # Start the Flask app using Waitress
     logger.info("Starting the Flask API server...")

@@ -19,7 +19,7 @@
     "bcrypt": "^5.1.1",
     "date-fns": "^3.6.0",
     "leaflet": "^1.9.4",
-    "next": "14.2.5",
+    "next": "^14.2.29",
     "next-auth": "^4.24.7",
     "next-cloudinary": "^6.10.0",
     "query-string": "^9.1.0",
@@ -32,6 +32,7 @@
     "react-leaflet": "^4.2.1",
     "react-select": "^5.8.0",
     "react-spinners": "^0.15.0",
+    "react-stars": "^2.2.5",
     "stripe": "^17.5.0",
     "world-countries": "^5.0.0",
     "zustand": "^4.5.4"

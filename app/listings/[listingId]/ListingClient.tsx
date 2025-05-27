@@ -8,6 +8,9 @@ import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 
+import RatingStars from "@/app/components/inputs/RatingStars";
+import getUserRating from "@/app/actions/getUserRating";
+
 import axios from "axios";
 import {
   differenceInCalendarDays,
@@ -30,6 +33,7 @@ interface ListingClientProps {
     user: SafeUser;
   };
   currentUser: SafeUser | null;
+  userRating?: number;
 }
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
@@ -38,6 +42,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   reservations = [],
   currentUser,
+  userRating = 0, // default 0
 }) => {
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -59,6 +64,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+
+  //simple rating
+  //const { hasRated, doRating } = useRating()
 
   const onCreateReservationNoPay = useCallback(() => {
     if (!currentUser) return loginModal.onOpen();
@@ -185,6 +193,14 @@ const ListingClient: React.FC<ListingClientProps> = ({
               locationValue={listing.locationValue}
             />
             <div className="order-first mb-10 mb:order-last md:col-span-3">
+              {currentUser && (
+                <RatingStars
+                  // className="mb-2px size-1 "
+                  listingId={listing.id}
+                  currentUser={currentUser}
+                  userRating={userRating}
+                />
+              )}
               <ListingReservation
                 currentUser={currentUser}
                 price={listing.price}
