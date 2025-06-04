@@ -5,12 +5,12 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-recommandation_service/model/*
-recommendation_service/Lib/*
-recommendation_service/share/*
-recommendation_service/Scripts/*
-recommendation_service/Include/*
-recommendation_service/__pycache/*
+/recommandation_service/model/*
+/recommendation_service/Lib/*
+/recommendation_service/share/*
+/recommendation_service/Scripts/*
+/recommendation_service/Include/*
+/recommendation_service/__pycache/*
 # testing
 /coverage
 
@@ -39,6 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
+recommendation_service/venv/*
 recommendation_service/pyvenv.cfg
-recomendation_service/Lib/site-packages/scipy-1.15.3-cp311-cp311-win_amd64.whl
+recommendation_service/Lib/site-packages/scipy-1.15.3-cp311-cp311-win_amd64.whl

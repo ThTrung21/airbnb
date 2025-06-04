@@ -4,7 +4,7 @@ from waitress import serve
 from search import  search_posts
 import logging
 from flask_cors import CORS
-
+from recommendation import main as recommend_function
 # Initialize the Flask app
 app = Flask(__name__)
 
@@ -27,6 +27,15 @@ def get_posts():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+@app.route("/recommendation", methods = ["GET"])
+def get_recommendations():
+    try:
+        userid = request.args.get("userId","")
+        listings = recommend_function(userid)
+        return jsonify(listings),200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 #===========================================================================
