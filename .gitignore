@@ -43,3 +43,6 @@ recommendation_service/venv/*
 recommendation_service/pyvenv.cfg
 recommendation_service/Lib/site-packages/scipy-1.15.3-cp311-cp311-win_amd64.whl
 recommendation_service/model/*
+recommendation_service/utils/__pycache__
+recommendation_service/__pycache__/*
+
