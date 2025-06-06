@@ -1,9 +1,11 @@
 "use client";
 
+import { SafeUser } from "@/app/types";
 import { describe } from "node:test";
 import { IconType } from "react-icons";
 
 interface ListingCategoryProps {
+  user: SafeUser;
   icon: IconType;
   label: string;
   description: string;
@@ -11,6 +13,7 @@ interface ListingCategoryProps {
 const ListingCategory: React.FC<ListingCategoryProps> = ({
   icon: Icon,
   label,
+  user,
   description,
 }) => {
   return (

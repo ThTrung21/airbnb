@@ -151,6 +151,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
     loginModal,
     listing?.title,
   ]);
+  //get categories
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
